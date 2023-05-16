@@ -1,0 +1,36 @@
+﻿<Window x:Class="RpiRgbLedMatrixSimulator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RpiRgbLedMatrixSimulator"
+        mc:Ignorable="d"
+        Title="MatrixSimulator" Height="469" Width="816">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0 0 0 5">
+            <TextBlock Text="Width"/>
+            <TextBox Text="{Binding MatrixWidth}"/>
+            <TextBlock Text="Height"/>
+            <TextBox Text="{Binding MatrixHeight}"/>
+            <TextBlock Text="Lock Ratio"/>
+            <CheckBox IsChecked="{Binding LockRatio}"/>
+            <TextBlock Text="Shape"/>
+            <CheckBox IsChecked="{Binding Shape}"/>
+            <TextBlock Text="Size"/>
+            <TextBox Text="{Binding Size}"/>
+            <Button Content="Text" Click="OnClick_Text"/>
+            <Button Content="Image" Click="OnClick_Image"/>
+            <Button Content="Gif" Click="OnClick_Gif"/>
+            <Button Content="Random" Click="OnClick_Random"/>
+            <Button Content="Line" Click="OnClick_Line"/>
+
+        </StackPanel>
+        <Border Grid.Row="1" BorderThickness="20" BorderBrush="Black">
+            <Canvas x:Name="MatrixCanvas" Background="Black" Margin="0 0 0 0"/>
+        </Border>
+    </Grid>
+</Window>
