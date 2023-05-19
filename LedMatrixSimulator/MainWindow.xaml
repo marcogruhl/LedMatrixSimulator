@@ -3,30 +3,56 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RpiRgbLedMatrixSimulator"
+        xmlns:system="clr-namespace:System;assembly=System.Runtime"
         mc:Ignorable="d"
-        Title="MatrixSimulator" Height="469" Width="816">
+        Title="LedMatrixSimulator" Height="489" Width="826">
+    <Window.Resources>
+
+        <system:Double x:Key="FontSize">16</system:Double>
+
+        <Style TargetType="TextBox" x:Key="TextBoxVerticalStyle">
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="FontSize" Value="{StaticResource FontSize}"/>
+            <Setter Property="Margin" Value="0 0 10 0"/>
+        </Style>
+        <Style TargetType="Button" x:Key="ButtonStyle">
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Margin" Value="0 0 5 0"/>
+            <Setter Property="FontSize" Value="{StaticResource FontSize}"/>
+        </Style>
+        <Style TargetType="CheckBox" x:Key="CheckBoxStyle">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0 0 10 0"/>
+            <Setter Property="FontSize" Value="{StaticResource FontSize}"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="TextBlockVerticalStyle">
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Margin" Value="0 0 5 0"/>
+            <Setter Property="FontSize" Value="{StaticResource FontSize}"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0 0 0 5">
-            <TextBlock Text="Width"/>
-            <TextBox Text="{Binding MatrixWidth}"/>
-            <TextBlock Text="Height"/>
-            <TextBox Text="{Binding MatrixHeight}"/>
-            <TextBlock Text="Lock Ratio"/>
-            <CheckBox IsChecked="{Binding LockRatio}"/>
-            <TextBlock Text="Shape"/>
-            <CheckBox IsChecked="{Binding Shape}"/>
-            <TextBlock Text="Size"/>
-            <TextBox Text="{Binding Size}"/>
-            <Button Content="Text" Click="OnClick_Text"/>
-            <Button Content="Image" Click="OnClick_Image"/>
-            <Button Content="Gif" Click="OnClick_Gif"/>
-            <Button Content="Random" Click="OnClick_Random"/>
-            <Button Content="Line" Click="OnClick_Line"/>
+            <TextBlock Text="Width:" Style="{StaticResource TextBlockVerticalStyle}"/>
+            <TextBox Text="{Binding MatrixWidth}" Style="{StaticResource TextBoxVerticalStyle}"/>
+            <TextBlock Text="Height:" Style="{StaticResource TextBlockVerticalStyle}"/>
+            <TextBox Text="{Binding MatrixHeight}" Style="{StaticResource TextBoxVerticalStyle}"/>
+            <TextBlock Text="Lock Ratio:" Style="{StaticResource TextBlockVerticalStyle}"/>
+            <CheckBox IsChecked="{Binding LockRatio}" Style="{StaticResource CheckBoxStyle}"/>
+            <TextBlock Text="Shape:" Style="{StaticResource TextBlockVerticalStyle}"/>
+            <CheckBox IsChecked="{Binding Shape}" Style="{StaticResource CheckBoxStyle}"/>
+            <TextBlock Text="Dot Size:" Style="{StaticResource TextBlockVerticalStyle}"/>
+            <TextBox Text="{Binding Size}" Style="{StaticResource TextBoxVerticalStyle}"/>
+            <TextBlock Text="Sample Faces:" Style="{StaticResource TextBlockVerticalStyle}"/>
+            <Button Content="Text" Click="OnClick_Text" Style="{StaticResource ButtonStyle}"/>
+            <Button Content="Image" Click="OnClick_Image" Style="{StaticResource ButtonStyle}"/>
+            <Button Content="Gif" Click="OnClick_Gif" Style="{StaticResource ButtonStyle}"/>
+            <Button Content="Random" Click="OnClick_Random" Style="{StaticResource ButtonStyle}"/>
+            <Button Content="Line" Click="OnClick_Line" Style="{StaticResource ButtonStyle}"/>
 
         </StackPanel>
         <Border Grid.Row="1" BorderThickness="20" BorderBrush="Black">

@@ -10,8 +10,10 @@ using System.Windows.Shapes;
 using BdfFontParser;
 using Rectangle = System.Windows.Shapes.Rectangle;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using mColor = System.Windows.Media.Color;
 using System.Threading;
+using LedMatrixSimulator;
 
 namespace RpiRgbLedMatrixSimulator;
 
@@ -19,14 +21,14 @@ public partial class MainWindow : INotifyPropertyChanged
 {
     #region properties
 
-    private static int _matrixWidth = 64;
+    private static int _matrixWidth = ConfigHelper.GetValue(nameof(MatrixWidth), 64);
 
     public int MatrixWidth
     {
         get => _matrixWidth;
         set
         {
-            if (SetProperty(ref _matrixWidth, value))
+            if (ConfigHelper.SetValue(ref _matrixWidth, value))
             {
                 _matrixController.SetSize(_matrixWidth, _matrixHeight);
                 BuildShapes();
@@ -34,53 +36,53 @@ public partial class MainWindow : INotifyPropertyChanged
         }
     }
 
-    private static int _matrixHeight = 32;
+    private static int _matrixHeight = ConfigHelper.GetValue(nameof(MatrixHeight), 32);
 
     public int MatrixHeight
     {
         get => _matrixHeight;
         set
         {
-            if (SetProperty(ref _matrixHeight, value))
+            if (ConfigHelper.SetValue(ref _matrixHeight, value))
             {
                 _matrixController.SetSize(_matrixWidth, _matrixHeight);
                 BuildShapes();
             }
         }
-    }
-
-    private bool _lockRatio = true;
+    }    
+    
+    private bool _lockRatio = ConfigHelper.GetValue(nameof(LockRatio), true);
 
     public bool LockRatio
     {
         get => _lockRatio;
         set
         {
-            if (SetProperty(ref _lockRatio, value))
+            if (ConfigHelper.SetValue(ref _lockRatio, value))
                 ResizeShapes();
         }
     }
 
-    private bool _shape;
+    private bool _shape = ConfigHelper.GetValue(nameof(Shape), false);
 
     public bool Shape
     {
         get => _shape;
         set
         {
-            if (SetProperty(ref _shape, value))
+            if (ConfigHelper.SetValue(ref _shape, value))
                 BuildShapes();
         }
     }
 
-    private double _size = 77;
+    private double _size = ConfigHelper.GetValue(nameof(Size), 77);
 
     public double Size
     {
         get => _size;
         set
         {
-            if (SetProperty(ref _size, value))
+            if (ConfigHelper.SetValue(ref _size, value))
                 ResizeShapes();
         }
     }
@@ -93,6 +95,10 @@ public partial class MainWindow : INotifyPropertyChanged
     private static mColor _backgroundLedColor = mColor.FromRgb(30,30,30);
     private static SolidColorBrush backgroundLedBrush = new SolidColorBrush(_backgroundLedColor);
     internal Shape?[,] Matrix;
+
+    // [DllImport("user32.dll")]
+    //
+    // public static extern bool LockWindowUpdate(IntPtr hWndLock);
 
     public MainWindow()
     {
@@ -137,25 +143,26 @@ public partial class MainWindow : INotifyPropertyChanged
     // private async Task Refresh()
     private async Task BuildShapes()
     {
-        _isInitialized = false;
+        // using (Dispatcher.DisableProcessing())
+        // {
+            _isInitialized = false;
 
-        Matrix = new Shape[_matrixWidth, _matrixHeight];
+            Matrix = new Shape[_matrixWidth, _matrixHeight];
 
-        MatrixCanvas.Children.Clear();
+            MatrixCanvas.Children.Clear();
 
-        for (int x = 0; x < _matrixWidth; x++)
-        {
-            for (int y = 0; y < _matrixHeight; y++)
+            for (int x = 0; x < _matrixWidth; x++)
             {
-                Shape shape = !_shape ? new Ellipse() : new Rectangle();
-                MatrixCanvas.Children.Add(shape);
-                Matrix[x,y] = shape;
+                for (int y = 0; y < _matrixHeight; y++)
+                {
+                    Shape shape = !_shape ? new Ellipse() : new Rectangle();
+                    MatrixCanvas.Children.Add(shape);
+                    Matrix[x, y] = shape;
+                }
             }
-        }
 
-        ResizeShapes();
-        
-        _isInitialized = true;
+            ResizeShapes();
+        // }
 
         Refresh();
     }
