@@ -1,7 +1,7 @@
 # LED Matrix Simulator
 This project should help to build new "Faces" for a LED Matrix without needing to connect directly to it. It uses a NamedPipeServer/Client to get data from the "real" project.
 
-![LedMatrixSimulator](https://github.com/marcogruhl/LedMatrixSimulator/assets/9695930/c4f6f484-fb31-42d4-8319-c045c33f71d8)
+![LedMatrixSimulator](https://github.com/marcogruhl/LedMatrixSimulator/assets/9695930/f39b24c8-cc16-4e95-bd2f-58ef67457e5e)
 
 # Goals
 
