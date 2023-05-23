@@ -1,7 +1,9 @@
 # LED Matrix Simulator
 This project should help to build new "Faces" for a LED Matrix without needing to connect directly to it. It uses a NamedPipeServer/Client to get data from the "real" project.
 
-![LedMatrixSimulator](https://github.com/marcogruhl/LedMatrixSimulator/assets/9695930/f39b24c8-cc16-4e95-bd2f-58ef67457e5e)
+The sample shows the time, some weather data and a rain chart (if it rains) or a weather forecast.
+
+![LedMatrixSimulator](https://github.com/marcogruhl/LedMatrixSimulator/assets/9695930/0634be75-8ed5-431e-8dec-da9914aebee6)
 
 # Goals
 
@@ -12,7 +14,6 @@ This project should help to build new "Faces" for a LED Matrix without needing t
 
 # Future development
 
-- sample client
 - proxy to client
 - proxy from client
 
